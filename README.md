@@ -31,5 +31,4 @@ Once installed, follow these steps to start using the extension:
 4. **Search and Filter**: Use the search bars to filter categories and links based on their name or title.
 5. **Delete Items**: Click the delete button next to any category or link to remove it.
 
-## File Structure
 
