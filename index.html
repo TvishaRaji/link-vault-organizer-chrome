@@ -1,27 +1,142 @@
-
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>LinkSaver</title>
-    <meta name="description" content="Save links in categories for easy reference" />
-    <meta name="author" content="LinkSaver" />
-
-    <meta property="og:title" content="LinkSaver" />
-    <meta property="og:description" content="Save links in categories for easy reference" />
-    <meta property="og:type" content="website" />
-    <meta property="og:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
-
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:site" content="@lovable_dev" />
-    <meta name="twitter:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
-  </head>
-
-  <body>
-    <div id="root"></div>
-    <!-- IMPORTANT: DO NOT REMOVE THIS SCRIPT TAG OR THIS VERY COMMENT! -->
-    <script src="https://cdn.gpteng.co/gptengineer.js" type="module"></script>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Link Manager</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <!-- Main Page (Categories) -->
+    <div id="categories-page" class="page active">
+      <div class="header">
+        <h1>Link Manager</h1>
+        <button id="add-category-btn" class="btn btn-primary">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon">
+            <path d="M12 5v14"></path>
+            <path d="M5 12h14"></path>
+          </svg>
+          Add Category
+        </button>
+      </div>
+      
+      <div class="search-container">
+        <div class="search-wrapper">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon search-icon">
+            <circle cx="11" cy="11" r="8"></circle>
+            <path d="m21 21-4.3-4.3"></path>
+          </svg>
+          <input type="text" id="category-search" class="search-input" placeholder="Search categories...">
+        </div>
+      </div>
+      
+      <div id="categories-container" class="grid-container">
+        <!-- Categories will be added here dynamically -->
+      </div>
+      
+      <!-- Add Category Modal -->
+      <div id="add-category-modal" class="modal">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h2>Add New Category</h2>
+            <button class="close-btn">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon">
+                <path d="M18 6 6 18"></path>
+                <path d="m6 6 12 12"></path>
+              </svg>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="category-name">Category Name</label>
+              <input type="text" id="category-name" placeholder="Enter category name">
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button id="save-category-btn" class="btn btn-primary">Save</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Links Page -->
+    <div id="links-page" class="page">
+      <div class="header">
+        <button id="back-btn" class="btn btn-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon">
+            <path d="m15 18-6-6 6-6"></path>
+          </svg>
+        </button>
+        <h1 id="category-title">Category Name</h1>
+        <button id="add-link-btn" class="btn btn-primary">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon">
+            <path d="M12 5v14"></path>
+            <path d="M5 12h14"></path>
+          </svg>
+          Add Link
+        </button>
+      </div>
+      
+      <div class="search-container">
+        <div class="search-wrapper">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon search-icon">
+            <circle cx="11" cy="11" r="8"></circle>
+            <path d="m21 21-4.3-4.3"></path>
+          </svg>
+          <input type="text" id="link-search" class="search-input" placeholder="Search links or tags...">
+        </div>
+      </div>
+      
+      <div id="links-container" class="grid-container">
+        <!-- Links will be added here dynamically -->
+      </div>
+      
+      <!-- Add Link Modal -->
+      <div id="add-link-modal" class="modal">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h2>Add New Link</h2>
+            <button class="close-btn">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon">
+                <path d="M18 6 6 18"></path>
+                <path d="m6 6 12 12"></path>
+              </svg>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="link-title">Title</label>
+              <input type="text" id="link-title" placeholder="Enter link title">
+            </div>
+            <div class="form-group">
+              <label for="link-url">URL</label>
+              <input type="url" id="link-url" placeholder="Enter URL">
+            </div>
+            <div class="form-group">
+              <label for="link-tags">Tags (comma separated)</label>
+              <input type="text" id="link-tags" placeholder="tag1, tag2, tag3">
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button id="save-link-btn" class="btn btn-primary">Save</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Toast Notification -->
+    <div id="toast" class="toast">
+      <div class="toast-content">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon toast-icon">
+          <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"></path>
+          <path d="m9 12 2 2 4-4"></path>
+        </svg>
+        <span id="toast-message">Operation successful!</span>
+      </div>
+    </div>
+  </div>
+  
+  <script type="module" src="popup.js"></script>
+</body>
 </html>
